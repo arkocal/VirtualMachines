@@ -60,7 +60,6 @@ public enum CMaInstructionType {
         switch (type) {
             case LOADC:
             case LOAD:
-            case STORE:
             case LOADA:
             case STOREA:
             case JUMP:
