@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class CmaParser {
+public class CMaParser {
     // We keep the parser as simple as possible,
     // since this is not a course on compiler construction,
     // particularly not for machine code.
@@ -42,7 +42,7 @@ public class CmaParser {
     List<CMaInstruction> instructions;
     HashMap<String, Integer> labelPositions;
 
-    public CmaParser() {
+    public CMaParser() {
         resetParserState();
     }
 
