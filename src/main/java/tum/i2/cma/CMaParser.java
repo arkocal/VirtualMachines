@@ -78,6 +78,10 @@ public class CMaParser {
     private void parseLine() {
         String label = null;
         ParsedInstruction instruction = null;
+
+        readWhitespace();
+        readNumber();
+
         readWhitespace();
         if (current_line.contains(":")) {
             label = readLabel();
@@ -209,6 +213,12 @@ public class CMaParser {
 
     private void readWhitespace() {
         while (position < current_line.length() && Character.isWhitespace(current_line.charAt(position))) {
+            position++;
+        }
+    }
+
+    private void readNumber() {
+        while (position < current_line.length() && Character.isDigit(current_line.charAt(position))) {
             position++;
         }
     }
