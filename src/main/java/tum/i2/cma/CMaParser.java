@@ -134,7 +134,7 @@ public class CMaParser {
         int[] args = new int[parsedLine.instruction.args.length];
         int i = 0;
         for (String str_arg: parsedLine.instruction.args) {
-            if (Character.isAlphabetic(str_arg.charAt(0))) {
+            if (Character.isAlphabetic(str_arg.charAt(0)) || str_arg.charAt(0) == '_') {
                 if (!labelPositions.containsKey(str_arg)) {
                     throw new RuntimeException("Unknown label " + str_arg + " at line " + parsedLine.line_number);
                 }
