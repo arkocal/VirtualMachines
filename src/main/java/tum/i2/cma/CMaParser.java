@@ -80,7 +80,7 @@ public class CMaParser {
         ParsedInstruction instruction = null;
 
         readWhitespace();
-        readNumber();
+        readStackDistance();
 
         readWhitespace();
         if (current_line.contains(":")) {
@@ -217,9 +217,15 @@ public class CMaParser {
         }
     }
 
-    private void readNumber() {
+    private void readStackDistance() {
+        int position_old = position;
         while (position < current_line.length() && Character.isDigit(current_line.charAt(position))) {
             position++;
+        }
+        if (current_line.charAt(position) == ' ') {
+            position++;
+        } else {
+            position = position_old;
         }
     }
 
