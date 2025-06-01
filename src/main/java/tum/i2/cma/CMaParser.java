@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class CmaParser {
+public class CMaParser {
     // We keep the parser as simple as possible,
     // since this is not a course on compiler construction,
     // particularly not for machine code.
@@ -42,7 +42,7 @@ public class CmaParser {
     List<CMaInstruction> instructions;
     HashMap<String, Integer> labelPositions;
 
-    public CmaParser() {
+    public CMaParser() {
         resetParserState();
     }
 
@@ -78,6 +78,10 @@ public class CmaParser {
     private void parseLine() {
         String label = null;
         ParsedInstruction instruction = null;
+
+        readWhitespace();
+        readStackDistance();
+
         readWhitespace();
         if (current_line.contains(":")) {
             label = readLabel();
@@ -134,7 +138,7 @@ public class CmaParser {
         int[] args = new int[parsedLine.instruction.args.length];
         int i = 0;
         for (String str_arg: parsedLine.instruction.args) {
-            if (Character.isAlphabetic(str_arg.charAt(0))) {
+            if (Character.isAlphabetic(str_arg.charAt(0)) || str_arg.charAt(0) == '_') {
                 if (!labelPositions.containsKey(str_arg)) {
                     throw new RuntimeException("Unknown label " + str_arg + " at line " + parsedLine.line_number);
                 }
@@ -210,6 +214,18 @@ public class CmaParser {
     private void readWhitespace() {
         while (position < current_line.length() && Character.isWhitespace(current_line.charAt(position))) {
             position++;
+        }
+    }
+
+    private void readStackDistance() {
+        int position_old = position;
+        while (position < current_line.length() && Character.isDigit(current_line.charAt(position))) {
+            position++;
+        }
+        if (current_line.charAt(position) == ' ') {
+            position++;
+        } else {
+            position = position_old;
         }
     }
 
